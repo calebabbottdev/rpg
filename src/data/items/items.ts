@@ -5,7 +5,7 @@ type ItemCategory =
   | 'Consumable'
   | 'Resource';
 
-type Item = {
+export type Item = {
   id: string;
   name: string;
   category: ItemCategory;
@@ -37,6 +37,33 @@ export const items: Item[] = [
       attack: 5,
       speed: 1,
     },
+  },
+  {
+    id: 'copper_ore',
+    name: 'Copper Ore',
+    category: 'Resource',
+    description: 'A lump of copper ore.',
+    value: 10,
+    isEquipable: false,
+    isStackable: false,
+  },
+  {
+    id: 'tin_ore',
+    name: 'Tin Ore',
+    category: 'Resource',
+    description: 'A lump of tin ore.',
+    value: 10,
+    isEquipable: false,
+    isStackable: false,
+  },
+  {
+    id: 'iron_ore',
+    name: 'Iron Ore',
+    category: 'Resource',
+    description: 'A lump of iron ore.',
+    value: 30,
+    isEquipable: false,
+    isStackable: false,
   },
 ];
 

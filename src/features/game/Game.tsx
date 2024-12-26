@@ -1,10 +1,13 @@
-import { getItemById } from 'src/data/items/items';
-import { getSkillById } from 'src/data/skills/skills';
+import player from 'src/db/player.json';
+import Mining from 'features/skills/Mining';
 
 function Game() {
-  console.log(getItemById('bronze_sword'));
-  console.log(getSkillById('mining'));
-  return <>Game</>;
+  return (
+    <>
+      <p>{JSON.stringify(player, null, 2)}</p>
+      <Mining />
+    </>
+  );
 }
 
 export default Game;
