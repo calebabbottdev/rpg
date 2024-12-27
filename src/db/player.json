@@ -6,5 +6,7 @@
     "defense": 1,
     "hitpoints": 10,
     "mining": 1
-  }
+  },
+  "inventory": [],
+  "bank": []
 }
