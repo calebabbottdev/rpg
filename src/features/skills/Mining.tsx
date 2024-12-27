@@ -18,7 +18,7 @@ const copper: Ore = {
   id: 'copper_ore',
   name: 'Copper Ore',
   levelRequired: 1,
-  experienceGiven: 300,
+  experienceGiven: 300000,
   drop: getItemById('copper_ore')!,
 };
 
@@ -57,31 +57,19 @@ const Mining: React.FC = () => {
       return;
     }
 
-    // if (inventory.length < 28) {
+    const skill = getSkillById('mining')!;
     setExperience((prevExperience) => {
-      let newExperience = prevExperience + ore.experienceGiven;
-      let level = miningLevel;
+      const { newLevel, remainingExperience } = skill.calculateNewLevel(
+        miningLevel,
+        prevExperience,
+        ore.experienceGiven,
+      );
 
-      while (level < 99) {
-        const { experienceForNextLevel } = getSkillById(
-          'mining',
-        )!.experienceCurve(level, newExperience);
-
-        if (newExperience >= experienceForNextLevel) {
-          level += 1;
-          console.log(`Your Mining level is now ${level}!`);
-        } else {
-          break;
-        }
-      }
-
-      setMiningLevel(level);
-
-      return newExperience;
+      setMiningLevel(newLevel);
+      return remainingExperience;
     });
 
     setInventory((prevInventory) => [...prevInventory, ore.drop]);
-    // } else console.log('Your inventory is full.');
   };
 
   return (
