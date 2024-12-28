@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { bankReducer } from 'features/bank/bankSlice';
 import { inventoryReducer } from 'features/inventory/inventorySlice';
 import { questsReducer } from 'features/quests/questsSlice';
-import { skillsReducer } from 'features/skills/skillsSlice';
+import skillsReducer from 'features/skills/skillsSlice';
 import { equipmentReducer } from 'features/worn-equipment/equipmentSlice';
 
 export const store = configureStore({

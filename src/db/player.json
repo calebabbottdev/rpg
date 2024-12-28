@@ -1,11 +1,26 @@
 {
   "username": "caleb",
   "skills": {
-    "attack": 1,
-    "strength": 1,
-    "defense": 1,
-    "hitpoints": 10,
-    "mining": 1
+    "attack": {
+      "level": 1,
+      "experience": 0
+    },
+    "strength": {
+      "level": 1,
+      "experience": 0
+    },
+    "defense": {
+      "level": 1,
+      "experience": 0
+    },
+    "hitpoints": {
+      "level": 10,
+      "experience": 1154
+    },
+    "mining": {
+      "level": 1,
+      "experience": 0
+    }
   },
   "inventory": [],
   "bank": []

@@ -19,12 +19,32 @@ export const getSkillById = (id: string): Skill | undefined => {
   return skills.find((skill) => skill.id === id);
 };
 
-const getExperienceForLevel = (level: number): number => {
+export const totalExperienceForLevel = (level: number): number => {
   let experience = 0;
   for (let i = 1; i < level; i++) {
     experience += Math.floor(i + 300 * Math.pow(2, i / 7));
   }
+
   return Math.floor(experience / 4);
+};
+
+export const levelForTotalExp = (experience: number): number => {
+  let level = 1;
+  let nextLevelExp = 0;
+
+  while (level < maxLevel) {
+    nextLevelExp += Math.floor(
+      Math.floor(level + 300 * Math.pow(2, level / 7)) / 4,
+    );
+
+    if (nextLevelExp > experience) {
+      return level;
+    }
+
+    level++;
+  }
+
+  return level; // Return max level if experience exceeds 99 levels
 };
 
 const calculateExperienceForLevel = (
@@ -36,7 +56,7 @@ const calculateExperienceForLevel = (
   }
 
   const nextLevel = currentLevel + 1;
-  const experienceForNextLevel = getExperienceForLevel(nextLevel);
+  const experienceForNextLevel = totalExperienceForLevel(nextLevel);
 
   const experienceRemaining = Math.max(
     0,
@@ -58,8 +78,7 @@ const calculateNewLevel = (
   let newLevel = currentLevel;
 
   while (newLevel < maxLevel) {
-    const experienceForNextLevel = getExperienceForLevel(newLevel + 1);
-
+    const experienceForNextLevel = totalExperienceForLevel(newLevel + 1);
     if (newExperience >= experienceForNextLevel) {
       newLevel += 1;
     } else {

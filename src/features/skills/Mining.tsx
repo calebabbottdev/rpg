@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 
 // Data
 import { getItemById, Item } from 'src/data/items/items';
-import { getSkillById } from 'src/data/skills/skills';
+import {
+  levelForTotalExp,
+  totalExperienceForLevel,
+} from 'src/data/skills/skills';
+
+// Redux
+import { store, RootState } from 'src/app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { gainExperience } from 'features/skills/skillsSlice';
 
 import player from 'src/db/player.json';
 
@@ -18,7 +26,7 @@ const copper: Ore = {
   id: 'copper_ore',
   name: 'Copper Ore',
   levelRequired: 1,
-  experienceGiven: 300000,
+  experienceGiven: 333804,
   drop: getItemById('copper_ore')!,
 };
 
@@ -41,53 +49,56 @@ const iron: Ore = {
 const ores: Ore[] = [copper, tin, iron];
 
 const Mining: React.FC = () => {
-  const [miningLevel, setMiningLevel] = useState<number>(player.skills.mining);
-  const [experience, setExperience] = useState<number>(0);
-  const [inventory, setInventory] = useState<Item[]>(player.inventory);
+  const dispatch = useDispatch();
+  const miningSkill = useSelector((state: RootState) => state.skills.mining);
 
-  const { experienceRemaining, experienceForNextLevel } = getSkillById(
-    'mining',
-  )!.experienceCurve(miningLevel, experience);
+  //   );
+  //   const [inventory, setInventory] = useState<Item[]>(player.inventory);
+
+  //   const { experienceRemaining, experienceForNextLevel } = getSkillById(
+  //     'mining',
+  //   )!.experienceCurve(miningLevel, experience);
 
   const handleMine = (ore: Ore) => {
-    if (miningLevel < ore.levelRequired) {
+    if (miningSkill.level < ore.levelRequired) {
       console.log(
         `You need a Mining level of ${ore.levelRequired} to mine ${ore.name}.`,
       );
       return;
     }
 
-    const skill = getSkillById('mining')!;
-    setExperience((prevExperience) => {
-      const { newLevel, remainingExperience } = skill.calculateNewLevel(
-        miningLevel,
-        prevExperience,
-        ore.experienceGiven,
-      );
+    dispatch(
+      gainExperience({
+        skill: 'mining',
+        experienceGained: ore.experienceGiven,
+      }),
+    );
 
-      setMiningLevel(newLevel);
-      return remainingExperience;
-    });
-
-    setInventory((prevInventory) => [...prevInventory, ore.drop]);
+    // setInventory((prevInventory) => [...prevInventory, ore.drop]);
   };
 
   return (
     <div>
-      <p>Items in inventory: {inventory.length}</p>
+      {/* <p>Items in inventory: {inventory.length}</p> */}
 
-      <p>Mining level: {miningLevel}</p>
-      <p>Experience: {experience}</p>
-      <p>Exp to next level: {experienceRemaining}</p>
+      <p>Mining level: {miningSkill.level}</p>
+      <p>Experience: {miningSkill.experience}</p>
+      {/* <p>Exp to next level: {experienceRemaining}</p>
       <p>
         Total exp to reach {miningLevel + 1}: {experienceForNextLevel}
-      </p>
+      </p> */}
 
       {ores.map((ore) => (
         <button key={ore.id} onClick={() => handleMine(ore)}>
           Mine {ore.name}
         </button>
       ))}
+
+      <button onClick={() => totalExperienceForLevel(10)}>
+        totalExperienceForLevel
+      </button>
+
+      <button onClick={() => levelForTotalExp(1154)}>levelForTotalExp</button>
     </div>
   );
 };
