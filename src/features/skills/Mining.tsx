@@ -7,6 +7,7 @@ import { getItemById, Resource } from 'src/data/items/items';
 import { AppDispatch, RootState } from 'src/app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleExperienceGain } from 'features/skills/skillsThunks';
+import { addToInventory } from 'features/inventory/inventorySlice';
 import { addMessage } from 'features/textbox/textboxSlice';
 
 // Strings
@@ -48,6 +49,7 @@ const Mining: React.FC = () => {
       return;
     }
 
+    dispatch(addToInventory({ item: ore.drop, quantity: 10 }));
     dispatch(handleExperienceGain('mining', ore.experienceGiven));
   };
 

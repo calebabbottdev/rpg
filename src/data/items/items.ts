@@ -53,7 +53,7 @@ export const items: Item[] = [
     description: 'A lump of copper ore.',
     value: 10,
     isEquipable: false,
-    isStackable: false,
+    isStackable: true,
   },
   {
     id: 'tin_ore',

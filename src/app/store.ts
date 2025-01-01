@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 // Reducers
 import { bankReducer } from 'features/bank/bankSlice';
-import { inventoryReducer } from 'features/inventory/inventorySlice';
+import inventoryReducer from 'features/inventory/inventorySlice';
 import { questsReducer } from 'features/quests/questsSlice';
 import skillsReducer from 'features/skills/skillsSlice';
 import textboxReducer from 'features/textbox/textboxSlice';

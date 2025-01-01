@@ -10,6 +10,7 @@ import { getSkills } from 'features/skills/skillsSlice';
 // Components
 import Game from 'features/game/Game';
 import Textbox from 'features/textbox/Textbox';
+import Inventory from 'features/inventory/Inventory';
 
 store.dispatch(getSkills());
 
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <Textbox />
+      <Inventory />
       <Game />
     </Provider>
   </StrictMode>,
