@@ -15,3 +15,5 @@ export const equipmentSkillTooLow = (
   level: number,
   item: Item,
 ) => `${item.name} requires a ${skill} level of ${level} to equip.`;
+
+export const inventoryFull = () => 'Your inventory is full.';
