@@ -24,6 +24,14 @@ export type Item = {
   };
 };
 
+export type Resource = {
+  id: string;
+  name: string;
+  levelRequired: number;
+  experienceGiven: number;
+  drop: Item;
+};
+
 export const items: Item[] = [
   {
     id: 'bronze_sword',

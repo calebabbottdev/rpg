@@ -5,36 +5,15 @@ import player from 'src/db/player.json';
 type SkillProperties = {
   level: number;
   experience: number;
+  remainingExperienceForNextLevel: number;
+  totalExperienceForNextLevel: number;
 };
 
 type InitialState = {
   [key: string]: SkillProperties;
 };
 
-const initialState: InitialState = {
-  attack: {
-    level: 1,
-    experience: 0,
-  },
-  strength: {
-    level: 1,
-    experience: 0,
-  },
-  defense: {
-    level: 1,
-    experience: 0,
-  },
-  hitpoints: {
-    level: 10,
-    experience: 1154,
-  },
-  mining: {
-    level: 1,
-    experience: 0,
-  },
-};
-
-const totalExpForLevel = (level: number): number => {
+const totalExperienceForLevel = (level: number): number => {
   let experience = 0;
   for (let i = 1; i < level; i++) {
     experience += Math.floor(i + 300 * Math.pow(2, i / 7));
@@ -42,17 +21,43 @@ const totalExpForLevel = (level: number): number => {
   return Math.floor(experience / 4);
 };
 
+const initialState: InitialState = Object.keys(player.skills).reduce(
+  (acc, skill) => {
+    const level: number = (
+      player.skills[skill as keyof typeof player.skills] as SkillProperties
+    ).level;
+
+    const experience: number = (
+      player.skills[skill as keyof typeof player.skills] as SkillProperties
+    ).experience;
+
+    const totalExperienceForNextLevel = totalExperienceForLevel(level + 1);
+
+    acc[skill] = {
+      level,
+      experience,
+      remainingExperienceForNextLevel: totalExperienceForNextLevel - experience,
+      totalExperienceForNextLevel: totalExperienceForNextLevel,
+    };
+    return acc;
+  },
+  {} as InitialState,
+);
+
 const skillsSlice = createSlice({
   name: 'skills',
   initialState,
   reducers: {
-    getSkills: () => {
-      return { ...player.skills };
+    getSkills: (): InitialState => {
+      return initialState;
     },
     gainExperience: (
       state,
-      action: PayloadAction<{ skill: string; experienceGained: number }>,
-    ) => {
+      action: PayloadAction<{
+        skill: string;
+        experienceGained: number;
+      }>,
+    ): void => {
       const { skill, experienceGained } = action.payload;
       const currentSkill = state[skill];
 
@@ -62,12 +67,23 @@ const skillsSlice = createSlice({
 
       while (
         currentSkill.level < 99 &&
-        currentSkill.experience >= totalExpForLevel(currentSkill.level + 1)
+        currentSkill.experience >=
+          totalExperienceForLevel(currentSkill.level + 1)
       ) {
         currentSkill.level += 1;
-        console.log(
-          `Congratulations! Your ${skill} level is now level ${currentSkill.level}.`,
+      }
+
+      if (currentSkill.level < 99) {
+        currentSkill.remainingExperienceForNextLevel =
+          totalExperienceForLevel(currentSkill.level + 1) -
+          currentSkill.experience;
+
+        currentSkill.totalExperienceForNextLevel = totalExperienceForLevel(
+          currentSkill.level + 1,
         );
+      } else {
+        currentSkill.remainingExperienceForNextLevel = 0;
+        currentSkill.totalExperienceForNextLevel = 0;
       }
     },
   },
