@@ -3,21 +3,23 @@ import React from 'react';
 // Data
 import { getItemById, Resource } from 'src/data/items/items';
 
-// Redux
-import { AppDispatch, RootState } from 'src/app/store';
-import { useDispatch, useSelector } from 'react-redux';
+// Features
 import { handleExperienceGain } from 'features/skills/skillsThunks';
 import { handleAddItemToInventory } from 'features/inventory/inventoryThunk';
 import { addMessage } from 'features/textbox/textboxSlice';
 
+// Redux
+import { AppDispatch, RootState } from 'src/app/store';
+import { useDispatch, useSelector } from 'react-redux';
+
 // Strings
-import { gatheringSkillTooLow } from 'src/constants/strings';
+import { gatheringSkillTooLow } from 'src/constants/gameStrings';
 
 const copper: Resource = {
   id: 'copper_ore',
   name: 'Copper Ore',
   levelRequired: 1,
-  experienceGiven: 333804,
+  experienceGiven: 5,
   drop: getItemById('copper_ore')!,
 };
 

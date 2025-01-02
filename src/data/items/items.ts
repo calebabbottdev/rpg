@@ -5,12 +5,15 @@ type ItemCategory =
   | 'Consumable'
   | 'Resource';
 
+export type Actions = 'Use' | 'Equip' | 'Drop' | 'Examine';
+
 export type Item = {
   id: string;
   name: string;
   category: ItemCategory;
   description: string;
   value: number;
+  actions: Actions[];
   isEquipable: boolean;
   isStackable: boolean;
   stats?: {
@@ -39,6 +42,7 @@ export const items: Item[] = [
     category: 'Mainhand',
     description: 'A bronze sword. Better than nothing.',
     value: 100,
+    actions: ['Equip', 'Drop', 'Examine'],
     isEquipable: true,
     isStackable: false,
     stats: {
@@ -52,6 +56,7 @@ export const items: Item[] = [
     category: 'Resource',
     description: 'A lump of copper ore.',
     value: 10,
+    actions: ['Use', 'Drop', 'Examine'],
     isEquipable: false,
     isStackable: true,
   },
@@ -61,6 +66,7 @@ export const items: Item[] = [
     category: 'Resource',
     description: 'A lump of tin ore.',
     value: 10,
+    actions: ['Use', 'Drop', 'Examine'],
     isEquipable: false,
     isStackable: false,
   },
@@ -70,6 +76,7 @@ export const items: Item[] = [
     category: 'Resource',
     description: 'A lump of iron ore.',
     value: 30,
+    actions: ['Use', 'Drop', 'Examine'],
     isEquipable: false,
     isStackable: false,
   },

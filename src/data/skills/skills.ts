@@ -1,10 +1,11 @@
+// Constants
+import { maxSkillLevel } from 'constants/gameSettings';
+
 type Skill = {
   id: string;
   name: string;
-  maxLevel: number;
+  maxSkillLevel: number;
 };
-
-const maxLevel = 99;
 
 export const getSkillById = (id: string): Skill | undefined => {
   return skills.find((skill) => skill.id === id);
@@ -23,7 +24,7 @@ export const levelForTotalExp = (experience: number): number => {
   let level = 1;
   let nextLevelExp = 0;
 
-  while (level < maxLevel) {
+  while (level < maxSkillLevel) {
     nextLevelExp += Math.floor(
       Math.floor(level + 300 * Math.pow(2, level / 7)) / 4,
     );
@@ -42,26 +43,26 @@ export const skills: Skill[] = [
   {
     id: 'attack',
     name: 'Attack',
-    maxLevel,
+    maxSkillLevel,
   },
   {
     id: 'strength',
     name: 'Strength',
-    maxLevel,
+    maxSkillLevel,
   },
   {
     id: 'defense',
     name: 'Defense',
-    maxLevel,
+    maxSkillLevel,
   },
   {
     id: 'hitpoints',
     name: 'Hitpoints',
-    maxLevel,
+    maxSkillLevel,
   },
   {
     id: 'mining',
     name: 'Mining',
-    maxLevel,
+    maxSkillLevel,
   },
 ];

@@ -12,7 +12,7 @@ const inventorySlice = createSlice({
     addToInventory: (
       state,
       action: PayloadAction<{ item: Item; quantity: number }>,
-    ) => {
+    ): void => {
       const { item, quantity } = action.payload;
       const existingItem = state.find((entry) => entry.item.id === item.id);
 
@@ -28,8 +28,23 @@ const inventorySlice = createSlice({
         }
       }
     },
+    removeFromInventory: (
+      state,
+      action: PayloadAction<{ item: Item; quantity: number; index: number }>,
+    ): void => {
+      const { item, quantity, index } = action.payload;
+      const existingItem = state[index];
+
+      if (existingItem && existingItem.item.id === item.id) {
+        existingItem.quantity -= quantity;
+
+        if (existingItem.quantity <= 0) {
+          state.splice(index, 1);
+        }
+      }
+    },
   },
 });
 
-export const { addToInventory } = inventorySlice.actions;
+export const { addToInventory, removeFromInventory } = inventorySlice.actions;
 export default inventorySlice.reducer;

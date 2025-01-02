@@ -1,5 +1,5 @@
 // Constants
-import { levelUp } from 'constants/strings';
+import { levelUp } from 'constants/gameStrings';
 
 // Features
 import { gainExperience } from 'features/skills/skillsSlice';

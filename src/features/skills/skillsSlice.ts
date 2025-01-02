@@ -1,3 +1,7 @@
+// Constants
+import { maxSkillLevel } from 'constants/gameSettings';
+
+// Redux
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import player from 'src/db/player.json';
@@ -66,14 +70,14 @@ const skillsSlice = createSlice({
       currentSkill.experience += experienceGained;
 
       while (
-        currentSkill.level < 99 &&
+        currentSkill.level < maxSkillLevel &&
         currentSkill.experience >=
           totalExperienceForLevel(currentSkill.level + 1)
       ) {
         currentSkill.level += 1;
       }
 
-      if (currentSkill.level < 99) {
+      if (currentSkill.level < maxSkillLevel) {
         currentSkill.remainingExperienceForNextLevel =
           totalExperienceForLevel(currentSkill.level + 1) -
           currentSkill.experience;
