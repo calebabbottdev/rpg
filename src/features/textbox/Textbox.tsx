@@ -26,6 +26,7 @@ const Textbox: React.FC = () => {
         fontSize: '14px',
       }}
     >
+      Textbox
       {messages.map((message, index) => (
         <p key={index} style={{ margin: '0' }}>
           {message}

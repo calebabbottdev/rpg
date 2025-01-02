@@ -5,7 +5,13 @@ type ItemCategory =
   | 'Consumable'
   | 'Resource';
 
-export type Actions = 'Use' | 'Equip' | 'Drop' | 'Examine';
+export type Actions =
+  | 'Use'
+  | 'Equip'
+  | 'Drop'
+  | 'Examine'
+  | 'Withdraw'
+  | 'Deposit';
 
 export type Item = {
   id: string;

@@ -5,7 +5,7 @@ import { getItemById, Resource } from 'src/data/items/items';
 
 // Features
 import { handleExperienceGain } from 'features/skills/skillsThunks';
-import { handleAddItemToInventory } from 'features/inventory/inventoryThunk';
+import { handleAddItemToInventory } from 'src/features/inventory/inventoryThunks';
 import { addMessage } from 'features/textbox/textboxSlice';
 
 // Redux

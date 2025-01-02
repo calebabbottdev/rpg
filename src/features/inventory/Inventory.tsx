@@ -7,7 +7,8 @@ import { Actions } from 'data/items/items';
 import {
   handleExamineItem,
   handleRemoveItemFromInventory,
-} from 'features/inventory/inventoryThunk';
+} from 'features/inventory/inventoryThunks';
+import { handleDepositItem } from 'features/bank/bankThunks';
 
 // Redux
 import { AppDispatch, RootState } from 'src/app/store';
@@ -16,11 +17,12 @@ import { useDispatch, useSelector } from 'react-redux';
 const Inventory: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const inventory = useSelector((state: RootState) => state.inventory);
+  const { location } = useSelector((state: RootState) => state.location);
 
   const handleAction = (
     action: Actions,
     item: (typeof inventory)[0]['item'],
-    index: number,
+    index: number
   ) => {
     switch (action) {
       case 'Use':
@@ -37,6 +39,10 @@ const Inventory: React.FC = () => {
 
       case 'Examine':
         dispatch(handleExamineItem(item));
+        break;
+
+      case 'Deposit':
+        dispatch(handleDepositItem(item, 1, index));
         break;
 
       default:
@@ -56,6 +62,7 @@ const Inventory: React.FC = () => {
         fontSize: '14px',
       }}
     >
+      Inventory
       {inventory.map((items, index) => (
         <div key={index}>
           <p style={{ margin: '0' }}>
@@ -69,6 +76,11 @@ const Inventory: React.FC = () => {
               {action}
             </button>
           ))}
+          {location === 'Town' ? (
+            <button onClick={() => handleAction('Deposit', items.item, index)}>
+              Deposit
+            </button>
+          ) : null}
         </div>
       ))}
     </div>

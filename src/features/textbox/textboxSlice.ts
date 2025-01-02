@@ -13,7 +13,13 @@ const textboxSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action: PayloadAction<string>) => {
-      state.messages.push(action.payload);
+      const now = new Date();
+
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      state.messages.push(`[${hours}:${minutes}:${seconds}] ${action.payload}`);
       // Keep only the last 5 messages
       // if (state.messages.length > 5) {
       //   state.messages.shift();
