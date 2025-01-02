@@ -143,7 +143,7 @@ const ItemGrid: React.FC<ItemGridProps> = ({ items, source }) => {
               size='small'
               onClick={() => handleActionOpen(items.item, index)}
             >
-              {items.item.name} x{items.quantity}
+              <img src={items.item.icon} /> x{items.quantity}
             </Button>
           </Grid>
         ))}

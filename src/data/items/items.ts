@@ -1,3 +1,7 @@
+import copperOre from 'assets/Copper_ore.png';
+import tinOre from 'assets/Tin_ore.png';
+import ironOre from 'assets/Iron_ore.png';
+
 type ItemCategory =
   | 'Mainhand'
   | 'Offhand'
@@ -15,6 +19,7 @@ export type Actions =
 
 export type Item = {
   id: string;
+  icon: string;
   name: string;
   category: ItemCategory;
   description: string;
@@ -44,6 +49,7 @@ export type Resource = {
 export const items: Item[] = [
   {
     id: 'bronze_sword',
+    icon: '',
     name: 'Bronze Sword',
     category: 'Mainhand',
     description: 'A bronze sword. Better than nothing.',
@@ -58,16 +64,18 @@ export const items: Item[] = [
   },
   {
     id: 'copper_ore',
+    icon: copperOre,
     name: 'Copper Ore',
     category: 'Resource',
     description: 'A lump of copper ore.',
     value: 10,
     actions: ['Use', 'Drop', 'Examine'],
     isEquipable: false,
-    isStackable: true,
+    isStackable: false,
   },
   {
     id: 'tin_ore',
+    icon: tinOre,
     name: 'Tin Ore',
     category: 'Resource',
     description: 'A lump of tin ore.',
@@ -78,6 +86,7 @@ export const items: Item[] = [
   },
   {
     id: 'iron_ore',
+    icon: ironOre,
     name: 'Iron Ore',
     category: 'Resource',
     description: 'A lump of iron ore.',

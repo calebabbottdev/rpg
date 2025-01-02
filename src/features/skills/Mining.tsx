@@ -20,7 +20,7 @@ const copper: Resource = {
   id: 'copper_ore',
   name: 'Copper Ore',
   levelRequired: 1,
-  experienceGiven: 5,
+  experienceGiven: 17.5,
   drop: getItemById('copper_ore')!,
 };
 
@@ -28,7 +28,7 @@ const tin: Resource = {
   id: 'tin_ore',
   name: 'Tin Ore',
   levelRequired: 1,
-  experienceGiven: 5,
+  experienceGiven: 17.5,
   drop: getItemById('tin_ore')!,
 };
 
@@ -36,7 +36,7 @@ const iron: Resource = {
   id: 'iron_ore',
   name: 'Iron Ore',
   levelRequired: 15,
-  experienceGiven: 20,
+  experienceGiven: 35,
   drop: getItemById('iron_ore')!,
 };
 
