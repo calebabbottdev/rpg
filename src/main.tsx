@@ -14,12 +14,14 @@ import Bank from 'features/bank/Bank';
 import Inventory from 'features/inventory/Inventory';
 
 store.dispatch(getSkills());
+const { location } = store.getState().location;
+console.log(location);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <Textbox />
-      <Bank />
+      {location === 'Town' ? <Bank /> : null}
       <Inventory />
       <Game />
     </Provider>
