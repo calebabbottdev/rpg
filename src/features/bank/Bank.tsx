@@ -1,57 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-// Data
-import { Actions } from 'data/items/items';
+// Interface
+import ItemGrid from 'interface/common/ItemGrid';
 
-// Features
-import { handleWithdrawItem } from 'features/bank/bankThunks';
+// MUI
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid2 as Grid,
+} from '@mui/material';
+
 // Redux
-import { AppDispatch, RootState } from 'src/app/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/app/store';
+import { useSelector } from 'react-redux';
 
 const Bank: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const [open, setOpen] = useState<boolean>(false);
+
   const bank = useSelector((state: RootState) => state.bank);
 
-  const handleAction = (
-    action: Actions,
-    item: (typeof bank)[0]['item'],
-    index: number
-  ) => {
-    switch (action) {
-      case 'Withdraw':
-        dispatch(handleWithdrawItem(item, 1, index));
-        break;
-
-      default:
-        alert('Invalid action!');
-        break;
-    }
-  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
-    <div
-      style={{
-        height: '150px',
-        border: '1px solid #ccc',
-        padding: '8px',
-        overflowY: 'auto',
-        fontFamily: 'monospace',
-        fontSize: '14px',
-      }}
-    >
-      Bank
-      {bank.map((items, index) => (
-        <div key={index}>
-          <p style={{ margin: '0' }}>
-            {items.item.name} x{items.quantity}
-          </p>
-          <button onClick={() => handleAction('Withdraw', items.item, index)}>
-            Withdraw
-          </button>
-        </div>
-      ))}
-    </div>
+    <>
+      <Button color='inherit' onClick={handleOpen}>
+        Bank
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Bank</DialogTitle>
+        <DialogContent
+          sx={{
+            minHeight: '300px',
+            minWidth: '80vw',
+          }}
+        >
+          <Grid container spacing={1} sx={{ p: 1 }}>
+            <ItemGrid items={bank} source='bank' />
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color='primary'>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

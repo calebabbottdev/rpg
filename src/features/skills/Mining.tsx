@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Strings
 import { gatheringSkillTooLow } from 'src/constants/gameStrings';
+import { Box, Button, Typography } from '@mui/material';
 
 const copper: Resource = {
   id: 'copper_ore',
@@ -56,21 +57,28 @@ const Mining: React.FC = () => {
   };
 
   return (
-    <div>
-      <p>Mining level: {miningSkill.level}</p>
-      <p>Experience: {miningSkill.experience}</p>
-      <p>Exp to next level: {miningSkill.remainingExperienceForNextLevel}</p>
-      <p>
+    <Box>
+      <Typography>Mining level: {miningSkill.level}</Typography>
+      <Typography>Experience: {miningSkill.experience}</Typography>
+      <Typography>
+        Exp to next level: {miningSkill.remainingExperienceForNextLevel}
+      </Typography>
+      <Typography>
         Total exp to reach {miningSkill.level + 1}:{' '}
         {miningSkill.totalExperienceForNextLevel}
-      </p>
+      </Typography>
 
       {ores.map((ore) => (
-        <button key={ore.id} onClick={() => handleMine(ore)}>
+        <Button
+          variant='contained'
+          size='small'
+          key={ore.id}
+          onClick={() => handleMine(ore)}
+        >
           Mine {ore.name}
-        </button>
+        </Button>
       ))}
-    </div>
+    </Box>
   );
 };
 

@@ -13,6 +13,7 @@ export default defineConfig({
       data: '/src/data',
       features: '/src/features',
       hooks: '/src/hooks',
+      interface: '/src/interface',
       styles: '/src/styles',
       util: '/src/util',
     },
